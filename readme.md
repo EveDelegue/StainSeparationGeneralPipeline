@@ -35,6 +35,7 @@ pip install -r requirements.txt
 To apply the method to your images, put them in a `data` folder as such :
 
 StainSeparationGeneralPipeline/
+```text
 ├── conf
 ├── data/     
 │   ├── dataset_1/       
@@ -46,8 +47,8 @@ StainSeparationGeneralPipeline/
 │       ├── img_2.jpg           
 │       └── ...      
 └── ...    
-
-The dataset and images names don't matter. You will then need to write the name of the dataset you want to use in the ```bash conf\config.yaml``` file. 
+```
+The dataset and images names don't matter. You will then need to write the name of the dataset you want to use in the ```conf\config.yaml``` file. 
 ```yaml
 paths: 
     dataset: <your dataset name>
@@ -60,7 +61,8 @@ The main script can be run with the command
 python main.py
 ```
 
-It creates a ```bash results``` folder with this structure :
+It creates a ```results``` folder with this structure :
+```text
 ├── results/     
 │   ├── img_1/       
 │   │   ├── sample_0.png # H chanel              
@@ -71,10 +73,10 @@ It creates a ```bash results``` folder with this structure :
 │   └── img_2/              
 │       └── ...      
 └── ...    
-
+```
 ### Parameters
 
-Parameters can be changed in the ```bash conf\config.yaml``` file. For now it contains : 
+Parameters can be changed in the ```conf\config.yaml``` file. For now it contains : 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `paths: dataset` | path to the image dataset | data\dataset_0 |
@@ -88,7 +90,7 @@ Parameters can be changed in the ```bash conf\config.yaml``` file. For now it co
 python main.py paths.verbose=my_results
 ```
 
-runs the code and saves the images in ```bash my_results``` instead of ```bash results```
+runs the code and saves the images in ```my_results``` instead of ```results```
 ## Results
 
 | Original image | Output image |
