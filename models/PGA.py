@@ -24,3 +24,17 @@ class PGA(torch.nn.Module):
             if nit > 0 and torch.norm(H - Hold) < torch.norm(Hold) * self.tol:
                 break
         return H
+
+class dummy_PGA(torch.nn.Module):
+    def __init__(self, Wgt, device, nitm:int=1500, prec:float=1e-4):
+        super(dummy_PGA, self).__init__()
+        self.device = torch.device(device)
+        self.W = -torch.log(Wgt.to(device)/255)
+        self.max_iters = nitm
+        self.tol = prec
+    
+    def forward(self, V, Lambda:float=0.):
+        # init H
+        H = (torch.linalg.pinv(self.W) @ V)
+        H = torch.maximum(H, torch.zeros_like(H))
+        return H

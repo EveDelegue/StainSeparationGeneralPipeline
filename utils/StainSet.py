@@ -8,7 +8,7 @@ import torch
 
 class StainSet(Dataset):
 
-    def __init__(self, data_path:str, transforms=v2.Compose([v2.Resize((256,256))])):
+    def __init__(self, data_path:str, transforms=lambda x:x):
         self.data_path = Path(data_path)
         self.files = sorted(self.data_path.glob("*.png")) +sorted(self.data_path.glob("*.jpg")) 
         self.transforms = transforms

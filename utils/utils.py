@@ -2,6 +2,14 @@ import torch
 import matplotlib.pyplot as plt
 import os
 
+def gen_HE_image(W, H, N:int=500, M:int=500):
+    BS = len(H)
+    W0 = -torch.log(W/255)
+    chanel_OD = W0[:,0:2] @ H[:,0:2,:]
+    chanel_img = torch.exp(-chanel_OD.reshape(BS, 3, N, M))
+
+    return chanel_img
+
 def gen_image(W, H, N:int=500, M:int=500):
     BS = len(H)
     W0 = -torch.log(W/255)
@@ -18,20 +26,19 @@ def gen_chanels(W, H, N:int=500, M:int=500):
         chanel_OD = W0[:,chanel:chanel+1] @ H[:,chanel:chanel+1,:]
         chanel_img = torch.exp(-chanel_OD.reshape(BS, 3, N, M))
         imgs_list.append(chanel_img)
-
     return imgs_list
 
-def reconstruct_store_imgs(W,H,visuals_dir,shown,N,M):
+def reconstruct_store_imgs(W,H,verbose:bool=False,visuals_dir:str="visuals",shown:str="full",N:int=256,M:int=256):
 
     os.makedirs(visuals_dir, exist_ok=True)
 
-    imgs_list = gen_image(W,H,N,M)
-    for i,img in enumerate(imgs_list):
-        save_dir = os.path.join(visuals_dir,  f"pred_{i}")
-        os.makedirs(save_dir,exist_ok=True)
-        plt.imsave( os.path.join(save_dir , f"sample_{shown}_{i}.png"),img.cpu().permute(1,2,0))
+    img = gen_image(W,H,N,M)
+    if verbose:
+            plt.imsave( os.path.join(visuals_dir , f"sample_{shown}.png"),img.squeeze().cpu().permute(1,2,0))
+    img_HE = gen_HE_image(W,H,N,M)
+    plt.imsave( os.path.join(visuals_dir , f"sample_HE.png"),img_HE.squeeze().cpu().permute(1,2,0))
+    
     imgs_list = gen_chanels(W,H,N,M)
-    for id,chanel_list in enumerate(imgs_list):
-        for i,img in enumerate(chanel_list):
-            save_dir = os.path.join(visuals_dir,  f"pred_{i}")
-            plt.imsave( os.path.join(save_dir , f"sample_{id}_{i}.png"),img.cpu().permute(1,2,0))
+    if verbose:
+        for id,chanel in enumerate(imgs_list):
+                plt.imsave( os.path.join(visuals_dir , f"sample_{id}.png"),chanel.squeeze().cpu().permute(1,2,0))
