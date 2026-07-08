@@ -1,0 +1,5 @@
+brouillons/
+*.png
+*.jpg
+.venv/
+outputs/
