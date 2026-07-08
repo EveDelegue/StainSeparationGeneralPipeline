@@ -1,6 +1,6 @@
 brouillons/
-*.png
-*.jpg
 .venv/
 outputs/
+results/
+data/
 __pycache__

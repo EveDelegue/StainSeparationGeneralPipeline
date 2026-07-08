@@ -91,7 +91,10 @@ python main.py paths.verbose=my_results
 runs the code and saves the images in ```bash my_results``` instead of ```bash results```
 ## Results
 
-
+| Original image | Output image |
+|-----------|-------------|
+|![Framework](figures/HE_staining.jpg) |![Framework](figures/sample_HE_HE.png) |
+|![Framework](figures/HES_staining.png)|![Framework](figures/sample_HE.png)    |
 
 ## Contributing
 

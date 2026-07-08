@@ -5,7 +5,7 @@ import os
 def gen_HE_image(W, H, N:int=500, M:int=500):
     BS = len(H)
     W0 = -torch.log(W/255)
-    chanel_OD = W0[:,0:2] @ H[:,0:2,:]
+    chanel_OD = W0[:,0:-1] @ H[:,0:-1,:]
     chanel_img = torch.exp(-chanel_OD.reshape(BS, 3, N, M))
 
     return chanel_img
