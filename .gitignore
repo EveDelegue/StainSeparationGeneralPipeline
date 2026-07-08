@@ -3,3 +3,4 @@ brouillons/
 *.jpg
 .venv/
 outputs/
+__pycache__
